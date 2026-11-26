@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agenda Empresarial</title>
+<style>
+:root{--bg:#0b0c0e;--card:#121418;--line:#23262c;--tx:#e4e4e7;--mut:#8b8f98;--ac:#4c7ef3;--red:#e5484d;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{display:flex;min-height:100vh}
+aside{width:220px;flex:none;background:var(--card);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;padding:4px 8px 18px}
+.logo b{width:34px;height:34px;border-radius:10px;background:#4c7ef326;color:var(--ac);display:grid;place-items:center}
+.nav{display:flex;align-items:center;gap:10px;background:none;border:0;color:var(--mut);padding:9px 10px;border-radius:9px;font:inherit;cursor:pointer;text-align:left}
+.nav:hover{background:#ffffff0d}.nav.on{background:#4c7ef326;color:var(--ac)}
+.sync{margin-top:auto;font-size:12px;color:var(--mut);padding:8px}
+main{flex:1;min-width:0;max-width:1100px;margin:0 auto;padding:28px}
+h1{font-size:20px;margin:0}.sub{color:var(--mut);margin:2px 0 0}
+.top{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:20px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.i{width:16px;height:16px;flex:none}
+button,select,input,textarea{font:inherit;color:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:none;border-radius:9px;padding:8px 14px;cursor:pointer;color:#d4d4d8}
+.btn:hover{background:#ffffff0d}.btn.p{background:var(--ac);border-color:var(--ac);color:#fff}.btn.p:hover{filter:brightness(1.1)}.btn.d{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.stat{padding:18px}.stat small{color:var(--mut);display:block}.stat strong{font-size:30px;font-weight:600;display:block;margin-top:8px}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);font-weight:500}
+.li{display:flex;justify-content:space-between;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line)}.li:last-child{border:0}
+.mut{color:var(--mut);font-size:12px}.empty{padding:40px;text-align:center;color:var(--mut)}
+.inp{width:100%;background:#0e1013;border:1px solid var(--line);border-radius:9px;padding:9px 12px;outline:none}
+.inp:focus{border-color:var(--ac)}
+.tools{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tools .inp{flex:1;min-width:200px}.tools select{width:auto}
+.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:11px 14px;border-bottom:1px solid var(--line)}tr:last-child td{border:0}tbody tr:hover{background:#ffffff05}
+td.n{font-weight:500}td.r{color:#a1a1aa;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.ib{background:none;border:0;color:#6b7078;padding:5px;border-radius:7px;cursor:pointer;display:inline-flex}.ib:hover{color:var(--ac);background:#ffffff0d}.ib.x:hover{color:var(--red)}
+.pg{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+.ov{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:16px;z-index:9}
+.md{width:100%;max-width:480px;max-height:92vh;overflow:auto;padding:20px}
+.md h3{margin:0 0 14px}.md label{display:block;margin-bottom:12px;font-size:12px;color:#a1a1aa}.md label .inp{margin-top:4px;color:var(--tx);font-size:14px}
+.er{color:#f87171;font-size:12px;margin-top:3px;display:block}
+.dl dt{font-size:12px;color:var(--mut)}.dl dd{margin:0 0 12px;display:flex;gap:8px;align-items:center}
+.ft{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+#t{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#f4f4f5;color:#18181b;padding:8px 16px;border-radius:9px;font-weight:500;z-index:99;display:none}
+a{color:var(--ac)}
+@media(max-width:800px){.app{flex-direction:column}aside{width:auto;flex-direction:row;align-items:center;border:0;border-bottom:1px solid var(--line);padding:10px 12px;overflow-x:auto}.logo{padding:0 8px 0 0}.logo span,.sync{display:none}main{padding:18px 14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="logo"><b id="lg"></b><span>Agenda Empresarial</span></div>
+    <button class="nav on" data-v="dash" id="n1"></button>
+    <button class="nav" data-v="list" id="n2"></button>
+    <div class="sync" id="sy"></div>
+  </aside>
+  <main id="mn"></main>
+</div>
+<div id="m"></div><div id="t"></div>
+<script>
+const P={copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',msg:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',del:'<path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',bld:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',srch:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dig=v=>(v||'').replace(/\D/g,'');
+const mCnpj=v=>dig(v).slice(0,14).replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');
+const mTel=v=>{const d=dig(v).slice(0,11);if(!d)return'';if(d.length<=2)return`(${d}`;if(d.length<=6)return`(${d.slice(0,2)}) ${d.slice(2)}`;if(d.length<=10)return`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;return`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`};
+function okCnpj(v){const c=dig(v);if(c.length!==14||/^(\d)\1+$/.test(c))return false;const f=n=>{let s=0,p=n-7;for(let i=0;i<n;i++){s+=+c[i]*p--;if(p<2)p=9}const r=s%11;return r<2?0:11-r};return f(12)===+c[12]&&f(13)===+c[13]}
+const fd=d=>new Date(d).toLocaleDateString('pt-BR');
+const wa=c=>`https://wa.me/55${c.tel}`;
+function toast(m){const t=$('#t');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2200)}
+function copy(t,l){const done=()=>toast(l+' copiado');if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,fb);else fb();function fb(){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch{toast('Não foi possível copiar')}a.remove()}}
+
+/* ---------- armazenamento ---------- */
+const K='agenda:v1';let db=[],ready=false,mode='local',coll=null;
+const V={v:'dash',q:'',f:'all',asc:true,p:1};
+const getClaude=()=>new Promise(r=>{let n=0;const t=setInterval(()=>{if(window.claude||++n>40){clearInterval(t);r(window.claude)}},100)});
+async function init(){
+  try{const cl=await getClaude();const d=cl&&await cl.use('db'),u=cl&&await cl.use('user');
+    if(d&&u){const id=await u.id();coll=d.collection('data/users/'+id);mode='cloud';
+      coll.onSnapshot(s=>{db=s.docs.map(x=>x.data());ready=true;refresh()},local);return}}catch(e){}
+  local()}
+function local(){mode='local';try{db=JSON.parse(localStorage.getItem(K)||'[]')}catch{db=[]}ready=true;refresh()}
+async function put(c){try{if(mode==='cloud')await coll.doc(c.id).set(c);else{const i=db.findIndex(x=>x.id===c.id);i<0?db.push(c):db[i]=c;localStorage.setItem(K,JSON.stringify(db));refresh()}return true}catch{toast('Não foi possível salvar');return false}}
+async function drop(id){try{if(mode==='cloud')await coll.doc(id).delete();else{db=db.filter(x=>x.id!==id);localStorage.setItem(K,JSON.stringify(db));refresh()}return true}catch{toast('Não foi possível excluir');return false}}
+
+/* ---------- telas ---------- */
+$('#lg').innerHTML=ic('book');$('#n1').innerHTML=ic('grid')+'Dashboard';$('#n2').innerHTML=ic('bld')+'Empresas';
+const recent=()=>[...db].sort((a,b)=>b.criado.localeCompare(a.criado));
+function go(v){V.v=v;V.p=1;document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()}
+function render(){
+  $('#sy').textContent=mode==='cloud'?'Sincronizado na sua conta':'Salvo neste navegador';
+  if(V.v==='dash'){
+    const w=Date.now()-7*864e5,rc=db.filter(c=>new Date(c.criado)>w).length,nt=db.filter(c=>c.obs&&c.obs.trim()).length,n=v=>ready?v:'–';
+    $('#mn').innerHTML=`<div class="top"><div><h1>Dashboard</h1><p class="sub">Visão geral da sua carteira de clientes</p></div><button class="btn p" data-a="new">${ic('plus')}Nova empresa</button></div>
+    <div class="stats"><div class="card stat"><small>Empresas cadastradas</small><strong>${n(db.length)}</strong></div><div class="card stat"><small>Adicionadas (7 dias)</small><strong>${n(rc)}</strong></div><div class="card stat"><small>Com observações</small><strong>${n(nt)}</strong></div></div>
+    <div class="card"><div class="ch">Adicionadas recentemente<button class="btn" data-a="all">Ver todas</button></div>${db.length?recent().slice(0,6).map(c=>`<div class="li"><div><div>${esc(c.fantasia)}</div><div class="mut">${esc(c.razao)}</div></div><div class="mut" style="text-align:right">${mTel(c.tel)}<br>${fd(c.criado)}</div></div>`).join(''):`<div class="empty">${ready?'Nenhuma empresa cadastrada ainda.':'Carregando…'}</div>`}</div>`;
+  }else{
+    $('#mn').innerHTML=`<div class="top"><div><h1>Empresas</h1><p class="sub" id="ct"></p></div><div class="row"><button class="btn" data-a="csv">${ic('dl')}Exportar CSV</button><button class="btn p" data-a="new">${ic('plus')}Nova empresa</button></div></div>
+    <div class="tools"><input class="inp" id="q" placeholder="Buscar por nome, CNPJ ou telefone…" value="${esc(V.q)}"><select class="inp" id="f"><option value="all">Todas</option><option value="recent">Últimos 7 dias</option><option value="notes">Com observações</option><option value="nonotes">Sem observações</option></select><button class="btn" id="so"></button></div>
+    <div class="card"><div class="wrap"><table><thead><tr><th>Nome fantasia</th><th>Razão social</th><th>CNPJ</th><th>Telefone</th><th>Cadastro</th><th style="text-align:right">Ações</th></tr></thead><tbody id="tb"></tbody></table></div><div class="pg" id="pg"></div></div>`;
+    $('#f').value=V.f;
+    $('#q').oninput=e=>{V.q=e.target.value;V.p=1;upd()};$('#f').onchange=e=>{V.f=e.target.value;V.p=1;upd()};$('#so').onclick=()=>{V.asc=!V.asc;upd()};
+    upd();
+  }
+}
+function filtered(){const s=V.q.trim().toLowerCase(),d=dig(V.q),w=Date.now()-7*864e5;
+  let r=db.filter(c=>!s||c.fantasia.toLowerCase().includes(s)||c.razao.toLowerCase().includes(s)||(d&&(c.cnpj.includes(d)||c.tel.includes(d))));
+  if(V.f==='notes')r=r.filter(c=>c.obs&&c.obs.trim());if(V.f==='nonotes')r=r.filter(c=>!(c.obs&&c.obs.trim()));if(V.f==='recent')r=r.filter(c=>new Date(c.criado)>w);
+  return r.sort((a,b)=>a.fantasia.localeCompare(b.fantasia,'pt-BR')*(V.asc?1:-1))}
+function upd(){
+  const l=filtered(),pages=Math.max(1,Math.ceil(l.length/10));V.p=Math.min(V.p,pages);const rows=l.slice((V.p-1)*10,V.p*10);
+  $('#ct').textContent=l.length+(l.length===1?' resultado':' resultados');$('#so').textContent=V.asc?'A–Z':'Z–A';
+  $('#tb').innerHTML=rows.length?rows.map(c=>`<tr><td class="n">${esc(c.fantasia)}</td><td class="r">${esc(c.razao)}</td>
+  <td>${mCnpj(c.cnpj)} <button class="ib" title="Copiar CNPJ" data-a="cc" data-id="${c.id}">${ic('copy')}</button></td>
+  <td>${mTel(c.tel)} <button class="ib" title="Copiar telefone" data-a="ct" data-id="${c.id}">${ic('copy')}</button></td><td class="mut">${fd(c.criado)}</td>
+  <td style="text-align:right"><a class="ib" title="Abrir no WhatsApp" href="${wa(c)}" target="_blank" rel="noopener noreferrer">${ic('msg')}</a><button class="ib" title="Visualizar" data-a="view" data-id="${c.id}">${ic('eye')}</button><button class="ib" title="Editar" data-a="edit" data-id="${c.id}">${ic('edit')}</button><button class="ib x" title="Excluir" data-a="del" data-id="${c.id}">${ic('del')}</button></td></tr>`).join(''):`<tr><td colspan="6" class="empty">${ready?'Nenhuma empresa encontrada.':'Carregando…'}</td></tr>`;
+  $('#pg').innerHTML=`<span>Página ${V.p} de ${pages}</span><span class="row"><button class="btn" data-a="prev" ${V.p<=1?'disabled':''}>Anterior</button><button class="btn" data-a="next" ${V.p>=pages?'disabled':''}>Próxima</button></span>`;
+}
+const refresh=()=>V.v==='list'&&$('#tb')?(upd(),$('#sy').textContent=mode==='cloud'?'Sincronizado na sua conta':'Salvo neste navegador'):render();
+
+/* ---------- modais ---------- */
+const modal=h=>{$('#m').innerHTML=`<div class="ov" data-a="bg"><div class="card md">${h}</div></div>`};
+const close=()=>$('#m').innerHTML='';
+function form(c){c=c||{};
+  modal(`<h3>${c.id?'Editar empresa':'Nova empresa'}</h3><form id="fm" novalidate>
+  <label>CNPJ<input class="inp" id="fc" inputmode="numeric" placeholder="00.000.000/0000-00" value="${mCnpj(c.cnpj)}"><span class="er" id="e1"></span></label>
+  <label>Nome fantasia<input class="inp" id="ff" maxlength="200" value="${esc(c.fantasia)}"><span class="er" id="e2"></span></label>
+  <label>Razão social<input class="inp" id="fr" maxlength="250" value="${esc(c.razao)}"><span class="er" id="e3"></span></label>
+  <label>Telefone<input class="inp" id="ft" inputmode="tel" placeholder="(00) 00000-0000" value="${mTel(c.tel)}"><span class="er" id="e4"></span></label>
+  <label>Observações (opcional)<textarea class="inp" id="fo" rows="3" maxlength="5000">${esc(c.obs)}</textarea></label>
+  <div class="ft"><button type="button" class="btn" data-a="close">Cancelar</button><button class="btn p">Salvar</button></div></form>`);
+  $('#fc').oninput=e=>e.target.value=mCnpj(e.target.value);$('#ft').oninput=e=>e.target.value=mTel(e.target.value);
+  $('#fm').onsubmit=async e=>{e.preventDefault();
+    const v={cnpj:dig($('#fc').value),fantasia:$('#ff').value.trim(),razao:$('#fr').value.trim(),tel:dig($('#ft').value),obs:$('#fo').value.trim()};
+    const er=[!okCnpj(v.cnpj)?'CNPJ inválido':db.some(x=>x.cnpj===v.cnpj&&x.id!==c.id)?'Este CNPJ já está cadastrado':'',v.fantasia.length<2?'Informe o nome fantasia':'',v.razao.length<2?'Informe a razão social':'',![10,11].includes(v.tel.length)?'Telefone inválido (DDD + número)':''];
+    er.forEach((m,i)=>$('#e'+(i+1)).textContent=m);if(er.some(Boolean))return;
+    const now=new Date().toISOString();
+    if(await put({id:c.id||Date.now().toString(36)+Math.random().toString(36).slice(2,8),...v,criado:c.criado||now,atualizado:now})){close();toast(c.id?'Empresa atualizada':'Empresa cadastrada')}};
+}
+function detail(c){
+  modal(`<h3>${esc(c.fantasia)}</h3><dl class="dl"><dt>Razão social</dt><dd>${esc(c.razao)}</dd>
+  <dt>CNPJ</dt><dd>${mCnpj(c.cnpj)}<button class="ib" data-a="cc" data-id="${c.id}">${ic('copy')}</button></dd>
+  <dt>Telefone</dt><dd>${mTel(c.tel)}<button class="ib" data-a="ct" data-id="${c.id}">${ic('copy')}</button><a href="${wa(c)}" target="_blank" rel="noopener noreferrer">WhatsApp</a></dd>
+  <dt>Cadastrada em</dt><dd>${fd(c.criado)}</dd><dt>Observações</dt><dd style="display:block"><textarea class="inp" id="on" rows="4" maxlength="5000" placeholder="Anotações sobre esta empresa…">${esc(c.obs)}</textarea></dd></dl>
+  <div class="ft"><button class="btn" data-a="close">Fechar</button><button class="btn p" id="sn">Salvar observações</button></div>`);
+  $('#sn').onclick=async()=>{if(await put({...c,obs:$('#on').value.trim(),atualizado:new Date().toISOString()})){close();toast('Observações salvas')}};
+}
+function confirmDel(c){modal(`<h3>Excluir empresa?</h3><p class="mut" style="font-size:14px">Você vai excluir <b style="color:var(--tx)">${esc(c.fantasia)}</b>. Esta ação não pode ser desfeita.</p><div class="ft"><button class="btn" data-a="close">Cancelar</button><button class="btn d" id="yd">Excluir</button></div>`);
+  $('#yd').onclick=async()=>{if(await drop(c.id)){close();toast('Empresa excluída')}}}
+
+/* ---------- CSV ---------- */
+const cell=v=>{let s=String(v??'').replace(/\r?\n/g,' ');if(/^[=+\-@]/.test(s))s="'"+s;return`"${s.replace(/"/g,'""')}"`};
+async function csv(){
+  if(!db.length)return toast('Nada para exportar');
+  const rows=[['Nome fantasia','Razão social','CNPJ','Telefone','Observações','Data de cadastro'],...filtered().map(c=>[c.fantasia,c.razao,mCnpj(c.cnpj),mTel(c.tel),c.obs,fd(c.criado)])];
+  const data='\uFEFF'+rows.map(r=>r.map(cell).join(';')).join('\r\n'),name='agenda-empresarial-'+new Date().toISOString().slice(0,10)+'.csv';
+  try{const cl=window.claude&&await window.claude.use('downloads');if(!cl)throw 0;await cl.save({filename:name,data});toast('Arquivo exportado')}
+  catch{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'text/csv;charset=utf-8'}));a.download=name;a.click()}
+}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',e=>{
+  const n=e.target.closest('.nav');if(n)return go(n.dataset.v);
+  const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,c=db.find(x=>x.id===b.dataset.id);
+  if(a==='bg'&&e.target!==b)return;
+  if(a==='bg'||a==='close')close();
+  else if(a==='new')form();else if(a==='all')go('list');
+  else if(a==='csv')csv();else if(a==='prev'){V.p--;upd()}else if(a==='next'){V.p++;upd()}
+  else if(c){if(a==='cc')copy(mCnpj(c.cnpj),'CNPJ');if(a==='ct')copy(mTel(c.tel),'Telefone');if(a==='view')detail(c);if(a==='edit')form(c);if(a==='del')confirmDel(c)}
+});
+render();init();
+</script>
+</body>
+</html>
